@@ -190,7 +190,7 @@ function onMissionEnter(m) {
 }
 
 function spawnStreetBrawl(m) {
-  State.streetNPCs = [];
+  m.spawnedNPCs = [];
   for (let i = 0; i < m.enemyCount; i++) {
     const angle = (i / m.enemyCount) * Math.PI * 2;
     const pos = new THREE.Vector3(
@@ -198,7 +198,10 @@ function spawnStreetBrawl(m) {
       0,
       m.triggerPos.z + Math.sin(angle) * 5,
     );
-    State.streetNPCs.push(createNPC(scene, 'bandit', pos));
+    const npc = createNPC(scene, 'bandit', pos);
+    npc.missionTag = m.id;
+    State.streetNPCs.push(npc);
+    m.spawnedNPCs.push(npc);
   }
   m.killed = 0;
 }
@@ -219,10 +222,13 @@ function spawnPoliceChase(m) {
 // Spawn some ambient bandits/police even outside missions for flavor
 function spawnAmbient() {
   const rng = Math.random;
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 6; i++) {
     const pos = new THREE.Vector3((rng() - 0.5) * 200, 0, (rng() - 0.5) * 200);
     if (world.isOnRoad(pos.x, pos.z, 3)) continue;
-    State.streetNPCs.push(createNPC(scene, rng() < 0.5 ? 'bandit' : 'police', pos));
+    const npc = createNPC(scene, rng() < 0.5 ? 'bandit' : 'police', pos);
+    npc.ambient = true;
+    npc.spec = { ...npc.spec, sightRange: 5 };  // ambient wake up only if very close
+    State.streetNPCs.push(npc);
   }
 }
 spawnAmbient();
@@ -405,19 +411,28 @@ function onPlayerImpact(strike) {
 }
 
 function trackKill(npc) {
-  // Street brawl mission
   for (const m of missionSys.missions) {
-    if (m.kind === 'brawl' && m.state === 'ACTIVE' && !m.done) {
-      if (State.streetNPCs.includes(npc)) {
-        m.killed++;
-        if (m.killed >= m.enemyCount) {
-          player.money += m.reward;
-          toast(`Миссия выполнена! +₽${m.reward}`, 1800);
-          missionSys.markComplete(m);
-          missionEl.style.display = 'none';
-        }
+    if (m.kind === 'brawl' && m.state === 'ACTIVE' && !m.done && npc.missionTag === m.id) {
+      m.killed++;
+      if (m.killed >= m.enemyCount) {
+        player.money += m.reward;
+        toast(`Миссия выполнена! +₽${m.reward}`, 1800);
+        missionSys.markComplete(m);
+        refreshMissionPanel();
       }
     }
+  }
+}
+
+function refreshMissionPanel() {
+  const active = missionSys.missions.find(x => x.state === 'ACTIVE' && !x.done);
+  if (active) {
+    missionEl.style.display = '';
+    missionName.textContent = active.name;
+    missionDesc.textContent = active.desc;
+    missionProg.textContent = '';
+  } else {
+    missionEl.style.display = 'none';
   }
 }
 
@@ -439,7 +454,7 @@ function checkMissionProgress(dt) {
           player.money += m.reward;
           toast(`Доставка! +₽${m.reward}`, 1800);
           missionSys.markComplete(m);
-          missionEl.style.display = 'none';
+          refreshMissionPanel();
         }
       }
     }
@@ -459,7 +474,7 @@ function checkMissionProgress(dt) {
           if (p.root.parent) p.root.parent.remove(p.root);
         }
         State.chase = null;
-        missionEl.style.display = 'none';
+        refreshMissionPanel();
       }
     }
   }
