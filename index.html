@@ -65,9 +65,9 @@
   .topbar .tb-right{display:flex;gap:18px;align-items:center}
   .nav{display:flex;align-items:center;gap:26px;height:72px}
   .logo{display:flex;align-items:center}
-  .logo-svg{height:44px;width:150px;display:block;transition:.2s}
-  .logo:hover .logo-svg{filter:drop-shadow(0 0 14px rgba(255,90,31,.45))}
-  footer .logo-svg{height:48px;width:164px}
+  .logo-img{height:40px;width:auto;display:block;transition:.2s}
+  .logo:hover .logo-img{filter:drop-shadow(0 0 14px rgba(255,90,31,.45))}
+  footer .logo-img{height:46px}
   .menu{display:flex;gap:24px;margin-left:14px}
   .menu a{font-size:15px;color:var(--muted);font-weight:500;transition:.2s;position:relative}
   .menu a:hover{color:var(--text)}
@@ -245,7 +245,7 @@
     will-change:filter,transform}
   .focus-photo img{width:100%;height:100%;object-fit:contain;display:block;
     filter:blur(22px) brightness(.5) saturate(.7);transform:scale(1.16);
-    will-change:filter,transform}
+    mix-blend-mode:screen;will-change:filter,transform}
   /* AF bracket overlay */
   .af{position:absolute;z-index:3;width:min(34vmin,300px);height:min(34vmin,300px);
     opacity:0;transform:scale(1.25);transition:opacity .3s,transform .3s;pointer-events:none}
@@ -306,36 +306,6 @@
 </head>
 <body>
 
-<!-- LOGO SPRITE (defined once, reused in header & footer) -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <linearGradient id="flame" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffd24b"/><stop offset=".45" stop-color="#ff8a1f"/><stop offset="1" stop-color="#d61f1f"/>
-    </linearGradient>
-    <linearGradient id="flame2" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffb43d"/><stop offset="1" stop-color="#e0245e"/>
-    </linearGradient>
-    <symbol id="fenixLogo" viewBox="0 0 600 180">
-      <g transform="translate(95,90)">
-        <g>
-          <path d="M0,-6 C-26,-18 -52,-30 -74,-58 C-66,-44 -58,-30 -56,-18 C-70,-30 -82,-46 -88,-66 C-84,-48 -78,-32 -72,-18 C-84,-30 -94,-48 -98,-70 C-94,-44 -84,-20 -64,-2 C-44,12 -20,16 0,12 Z" fill="#111" stroke="url(#flame)" stroke-width="3"/>
-          <path d="M-6,-2 C-26,-14 -44,-26 -58,-46 C-54,-32 -48,-20 -44,-10 C-56,-22 -66,-38 -70,-54 C-66,-34 -58,-14 -40,0 C-26,10 -12,12 -2,9 Z" fill="url(#flame)"/>
-        </g>
-        <g transform="scale(-1,1)">
-          <path d="M0,-6 C-26,-18 -52,-30 -74,-58 C-66,-44 -58,-30 -56,-18 C-70,-30 -82,-46 -88,-66 C-84,-48 -78,-32 -72,-18 C-84,-30 -94,-48 -98,-70 C-94,-44 -84,-20 -64,-2 C-44,12 -20,16 0,12 Z" fill="#111" stroke="url(#flame)" stroke-width="3"/>
-          <path d="M-6,-2 C-26,-14 -44,-26 -58,-46 C-54,-32 -48,-20 -44,-10 C-56,-22 -66,-38 -70,-54 C-66,-34 -58,-14 -40,0 C-26,10 -12,12 -2,9 Z" fill="url(#flame)"/>
-        </g>
-        <path d="M0,-58 C6,-50 7,-40 4,-30 C2,-24 -2,-24 -4,-30 C-7,-40 -6,-50 0,-58 Z" fill="url(#flame)"/>
-        <circle cx="0" cy="-44" r="3" fill="#111"/>
-        <path d="M-10,-18 C-6,-2 -4,18 0,40 C4,18 6,-2 10,-18 C6,-26 -6,-26 -10,-18 Z" fill="#111" stroke="url(#flame)" stroke-width="2.5"/>
-        <path d="M0,30 C-10,44 -18,54 -16,70 C-12,58 -6,50 0,44 C6,50 12,58 16,70 C18,54 10,44 0,30 Z" fill="url(#flame2)"/>
-        <path d="M0,34 L-6,66 M0,34 L0,70 M0,34 L6,66" stroke="#111" stroke-width="1.6"/>
-      </g>
-      <text x="210" y="120" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="92" fill="#e11d1d" letter-spacing="2" font-style="italic">FENIX</text>
-    </symbol>
-  </defs>
-</svg>
-
 <!-- SCROLL PROGRESS -->
 <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -352,7 +322,7 @@
   </div>
   <div class="wrap">
     <nav class="nav">
-      <a href="#" class="logo" aria-label="FENIX"><svg class="logo-svg" role="img"><use href="#fenixLogo"/></svg></a>
+      <a href="#" class="logo" aria-label="FENIX"><img src="images/logo.png" class="logo-img" alt="FENIX"></a>
       <div class="menu">
         <a href="#catalog">Каталог</a>
         <a href="#drones">Квадрокоптеры</a>
@@ -615,7 +585,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <a href="#" class="logo" aria-label="FENIX"><svg class="logo-svg" role="img"><use href="#fenixLogo"/></svg></a>
+        <a href="#" class="logo" aria-label="FENIX"><img src="images/logo.png" class="logo-img" alt="FENIX"></a>
         <p>Магазин фото- и видеотехники в Бишкеке. Оригинальная техника, гарантия и доставка по всему Кыргызстану с 2014 года.</p>
         <div class="socials">
           <a href="https://instagram.com/fenix.kg" target="_blank" rel="noopener noreferrer">📸</a>
