@@ -1,0 +1,59 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Объектив">
+  <defs>
+    <radialGradient id="glass" cx="42%" cy="38%" r="70%">
+      <stop offset="0" stop-color="#9fe9ff"/>
+      <stop offset=".35" stop-color="#3aa7d8"/>
+      <stop offset=".7" stop-color="#173a66"/>
+      <stop offset="1" stop-color="#0a1830"/>
+    </radialGradient>
+    <radialGradient id="glass2" cx="42%" cy="38%" r="70%">
+      <stop offset="0" stop-color="#ffe7a8"/>
+      <stop offset=".5" stop-color="#c46a2a"/>
+      <stop offset="1" stop-color="#2a0f08"/>
+    </radialGradient>
+    <linearGradient id="barrel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a3f4a"/>
+      <stop offset=".5" stop-color="#14171e"/>
+      <stop offset="1" stop-color="#070809"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4a4f5a"/>
+      <stop offset="1" stop-color="#1a1d24"/>
+    </linearGradient>
+  </defs>
+
+  <!-- outer barrel -->
+  <circle cx="200" cy="200" r="196" fill="url(#barrel)"/>
+  <circle cx="200" cy="200" r="196" fill="none" stroke="#000" stroke-width="3"/>
+
+  <!-- knurled focus ring -->
+  <circle cx="200" cy="200" r="180" fill="url(#ring)"/>
+  <g stroke="#0a0b0e" stroke-width="2">
+    <!-- knurl ticks -->
+    <g id="ticks"></g>
+  </g>
+  <circle cx="200" cy="200" r="162" fill="url(#barrel)"/>
+
+  <!-- red accent ring (brand) -->
+  <circle cx="200" cy="200" r="150" fill="none" stroke="#e11d1d" stroke-width="6"/>
+
+  <!-- inner barrel step -->
+  <circle cx="200" cy="200" r="140" fill="url(#ring)"/>
+  <circle cx="200" cy="200" r="120" fill="#0c0e12"/>
+
+  <!-- front glass element -->
+  <circle cx="200" cy="200" r="112" fill="url(#glass)"/>
+  <!-- inner reflection rings -->
+  <circle cx="200" cy="200" r="112" fill="none" stroke="#0a2240" stroke-width="2" opacity=".6"/>
+  <circle cx="200" cy="200" r="78" fill="none" stroke="#7fd6ff" stroke-width="1.5" opacity=".35"/>
+  <circle cx="200" cy="200" r="50" fill="url(#glass2)" opacity=".55"/>
+
+  <!-- aperture blades hint -->
+  <circle cx="200" cy="200" r="30" fill="#04101e"/>
+
+  <!-- specular highlight -->
+  <ellipse cx="160" cy="150" rx="46" ry="26" fill="#ffffff" opacity=".5" transform="rotate(-30 160 150)"/>
+  <ellipse cx="150" cy="160" rx="16" ry="9" fill="#ffffff" opacity=".8" transform="rotate(-30 150 160)"/>
+  <!-- streak flare -->
+  <rect x="120" y="120" width="120" height="3" fill="#bdecff" opacity=".5" transform="rotate(-30 200 200)"/>
+</svg>
